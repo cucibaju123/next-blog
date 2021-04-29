@@ -1,7 +1,16 @@
 import Link from 'next/link'
 import React from 'react'
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
 
 export default function NotFound() {
+    const router = useRouter()
+
+    useEffect(() => {
+        setTimeout(() => {
+            router.push('/')
+        }, 5000)
+    }, [])
     return (
         <div className='not-found'>
             <h1>404</h1>
