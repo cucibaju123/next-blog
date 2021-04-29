@@ -40,13 +40,11 @@ export async function getStaticProps({ params }) {
 }
 
 export default function RecipeDetails({ post }) {
-  // If post wasnt ready yet, then display this fallback page
   if (!post) return <Fallback />
-
   const { featuredImage, title, readingTime, postContent, createdAt } = post.fields
   console.log(post)
   return (
-    <Fall>
+    <div>
       <div className={styles.banner}>
         <Image
           src={'https:' + featuredImage.fields.file.url}
@@ -71,6 +69,6 @@ export default function RecipeDetails({ post }) {
           <div>{documentToReactComponents(postContent)}</div>
         </div>
       </div>
-    </Fall>
+    </div>
   )
 }
