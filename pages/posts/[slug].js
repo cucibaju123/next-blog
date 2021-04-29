@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import styles from '../../styles/[slug].module.css'
 import dateFormat from 'dateformat'
+import Fallback from '../../components/Fallback'
 
 const client = createClient({
   space: process.env.CONTENTFUL_SPACE_ID,
@@ -24,7 +25,7 @@ export async function getStaticPaths() {
 
   return {
     paths,
-    fallback: false
+    fallback: true
   }
 }
 
@@ -39,10 +40,13 @@ export async function getStaticProps({ params }) {
 }
 
 export default function RecipeDetails({ post }) {
+  // If post wasnt ready yet, then display this fallback page
+  if (!post) return <Fallback />
+
   const { featuredImage, title, readingTime, postContent, createdAt } = post.fields
   console.log(post)
   return (
-    <div>
+    <Fall>
       <div className={styles.banner}>
         <Image
           src={'https:' + featuredImage.fields.file.url}
@@ -67,6 +71,6 @@ export default function RecipeDetails({ post }) {
           <div>{documentToReactComponents(postContent)}</div>
         </div>
       </div>
-    </div>
+    </Fall>
   )
 }
